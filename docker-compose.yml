@@ -91,6 +91,8 @@ services:
     volumes:
       - ./configs/opencr/config.json:/src/server/config/config_docker.json
       - ./configs/opencr/mediator.json:/src/server/config/mediator.json
+      - ./configs/opencr/decisionRules.json:/src/server/config/decisionRules.json
+      - ./configs/opencr/PatientRelationship.json:/src/resources/Relationships/PatientRelationship.json
     labels:
       - 'traefik.enable=true'
       - 'traefik.docker.network=hie-botswana_hie'
@@ -101,7 +103,7 @@ services:
       - "traefik.http.routers.opencr.tls.certresolver=${PROVIDER}"
       
   opencr-fhir:
-    image: hapiproject/hapi:latest
+    image: hapiproject/hapi:v5.1.0
     container_name: opencr-fhir
     hostname: opencr-fhir
     restart: unless-stopped
@@ -258,7 +260,7 @@ services:
     container_name: fhir-converter
     hostname: fhir-converter
     restart: unless-stopped
-    image: ghcr.io/b-techbw/openhim-mediator-fhir-converter:${FHIR_CONVERTER_VERSION-latest}
+    image: ghcr.io/i-tech-uw/openhim-mediator-fhir-converter:${FHIR_CONVERTER_VERSION-latest}
     volumes:
       - ./configs/fhir-converter/config.json:/app/config.json
       - /app/src/service-templates
@@ -305,7 +307,7 @@ services:
     entrypoint: sh -c 'sleep 30 && /opt/bitnami/scripts/kafka/entrypoint.sh /opt/bitnami/scripts/kafka/run.sh' # prevent zookeeper conflict error
   
   omang-api:
-    image: ghcr.io/b-techbw/omangsvc:${OMANG_SVC_VERSION-latest}
+    image: ghcr.io/i-tech-uw/omangsvc:${OMANG_SVC_VERSION-latest}
     hostname: omang-api
     container_name: omang-api
     restart: unless-stopped
