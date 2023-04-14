@@ -49,5 +49,3 @@ server/log
 *.tar
 
 data/*
-
-.env
