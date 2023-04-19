@@ -126,12 +126,11 @@ services:
     restart: unless-stopped
     volumes:
       - shr-data:/data/hapi
-      - ./configs/shr/application.yml:/data/hapi/application.yaml
+      # - ./configs/shr/application.yaml:/data/hapi/application.yaml
     environment:
       SPRING_CONFIG_LOCATION: 'file:///data/hapi/application.yaml'
     ports:
       - 8080:8080
-
     networks:
       - hie
     healthcheck:
