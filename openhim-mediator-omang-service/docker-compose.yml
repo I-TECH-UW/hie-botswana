@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  omangsvc:
+    image: ghcr.io/i-tech-uw/omangsvc:${OMANG_SVC_VERSION-latest}
+    restart: unless-stopped
+    volumes:
+      - ./configs/omang/appsettings.json:/app/appsettings.json
+    networks:
+      - hie
+    labels:
+      - 'traefik.enable=true'
+      - "traefik.http.routers.omang.tls.certresolver=${PROVIDER}"
+      - 'traefik.docker.network=hie-botswana_hie'
+      - 'traefik.http.routers.omang.tls=true'
+      - 'traefik.http.routers.omang.entrypoints=web-secure'
+      - 'traefik.http.routers.omang.rule=Host(`omang.${ROOT_URL}`)'
+    environment:
+      - TZ=GMT

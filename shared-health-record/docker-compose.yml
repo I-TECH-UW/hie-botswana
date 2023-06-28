@@ -1,0 +1,5 @@
+version: '3.9'
+
+services:
+  shared-health-record:
+    image: i-tech-uw/shared-health-record:latest

@@ -1,0 +1,9 @@
+{
+  "id": "client-registry-opencr",
+  "name": "OpenCR Client Registry",
+  "description": "OpenCR Client Registry",
+  "type": "infrastructure",
+  "version": "0.0.1",
+  "dependencies": [],
+  "environmentVariables": {}
+}

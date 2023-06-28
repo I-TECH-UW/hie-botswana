@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  caddy:
+    container_name: caddy
+    build:
+      context: ./caddy
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - CADDY_INGRESS_NETWORKS=local_facility
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - caddy-data:/data
+      - ./ruleset:/ruleset
+      - audit:/audit
+      - ./caddy/Caddyfile:/Caddyfile
+    restart: unless-stopped
+    networks:
+      - local_facility

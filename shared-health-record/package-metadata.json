@@ -1,0 +1,9 @@
+{
+  "id": "shared-health-record",
+  "name": "Shared Health Record",
+  "description": "A shared health record for storing longitudinal patient level health data from across the health system.",
+  "type": "use-case",
+  "version": "0.0.1",
+  "dependencies": [],
+  "environmentVariables": {}
+}
