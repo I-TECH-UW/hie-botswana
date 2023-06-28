@@ -4,7 +4,7 @@ services:
   caddy:
     container_name: caddy
     build:
-      context: ./caddy
+      context: ./build
       dockerfile: Dockerfile
     ports:
       - 80:80
@@ -19,4 +19,9 @@ services:
       - ./caddy/Caddyfile:/Caddyfile
     restart: unless-stopped
     networks:
-      - local_facility
+      - public
+
+networks:
+  public:
+    name: reverse-proxy_public
+    external: true

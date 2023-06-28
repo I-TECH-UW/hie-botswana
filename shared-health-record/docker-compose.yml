@@ -2,4 +2,21 @@ version: '3.9'
 
 services:
   shared-health-record:
-    image: i-tech-uw/shared-health-record:latest
+    image: ghcr.io/i-tech-uw/shared-health-record:${SHR_VERSION-latest}
+    environment:
+      - NODE_ENV=docker
+    networks:
+      - default
+    configs:
+      - source: shr_config
+        target: /app/config/config_docker.json
+      - source: shr_mediator
+        target: /app/config/mediator_docker.json
+configs:
+  shr_config:
+    file: ./config/config.json
+  shr_mediator:
+    file: ./config/mediator.json
+
+networks:
+  default:

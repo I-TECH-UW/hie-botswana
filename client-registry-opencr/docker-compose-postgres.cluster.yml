@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  postgres-1:
+  opencr-postgres-1:
     environment:
       REPMGR_PARTNER_NODES: ${REPMGR_PARTNER_NODES}
     deploy:
@@ -9,7 +9,7 @@ services:
         constraints:
           - "node.labels.name==node-1"
 
-  postgres-2:
+  opencr-postgres-2:
     image: bitnami/postgresql-repmgr:14
     environment:
       POSTGRESQL_PASSWORD: ${HF_POSTGRESQL_PASSWORD}
@@ -37,11 +37,11 @@ services:
           memory: ${HF_POSTGRES_MEMORY_RESERVE}
     networks:
       default:
-      hapi-fhir-postgres:
+      opencr-postgres:
       pg_backup_net: {}
 
 
-  postgres-3:
+  opencr-postgres-3:
     image: bitnami/postgresql-repmgr:14
     environment:
       POSTGRESQL_PASSWORD: ${HF_POSTGRESQL_PASSWORD}
@@ -69,10 +69,10 @@ services:
           memory: ${HF_POSTGRES_MEMORY_RESERVE}
     networks:
       default:
-      hapi-fhir-postgres:
+      opencr-postgres:
       pg_backup_net: {}
 
 
 volumes:
-  hapi-postgres-2-data:
-  hapi-postgres-3-data:
+  opencr-postgres-2-data:
+  opencr-postgres-3-data:

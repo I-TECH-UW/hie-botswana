@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  postgres-1:
+  opencr-postgres-1:
     image: bitnami/postgresql-repmgr:14
     environment:
       POSTGRESQL_PASSWORD: ${HF_POSTGRESQL_PASSWORD}
@@ -27,16 +27,16 @@ services:
           memory: ${HF_POSTGRES_MEMORY_RESERVE}
     networks:
       default:
-      hapi-fhir-postgres:
+      opencr-postgres:
       pg_backup_net:
 
 volumes:
-  hapi-postgres-1-data:
+  opencr-postgres-1-data:
 
 networks:
   default:
-  hapi-fhir-postgres:
-    name: hapi-fhir_postgres_public
+  opencr-postgres:
+    name: opencr-postgres
     external: true
   pg_backup_net:
     name: pg_backup
