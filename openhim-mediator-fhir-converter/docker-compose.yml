@@ -2,4 +2,4 @@ version: '3.9'
 
 services:
   openhim-mediator-fhir-converter:
-    image: i-tech-uw/openhim-mediator-fhir-translator
+    image: ghcr.io/i-tech-uw/openhim-mediator-fhir-translator

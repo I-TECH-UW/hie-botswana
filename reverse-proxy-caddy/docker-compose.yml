@@ -10,7 +10,7 @@ services:
       - 80:80
       - 443:443
     environment:
-      - CADDY_INGRESS_NETWORKS=local_facility
+      - CADDY_INGRESS_NETWORKS=reverse-proxy_public
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - caddy-data:/data
