@@ -1,5 +1,5 @@
 projectName: hie-botswana
-image: itechuw/hie-botswana:v0.0.0
+image: itechuw/hie-botswana:local
 logPath: /tmp/logs
 
 packages:
@@ -9,14 +9,13 @@ packages:
   - reverse-proxy-caddy
   - openhim-mediator-omang-service
   - openhim-mediator-fhir-translator
-
-  # From https://github.com/jembi/platform
   - interoperability-layer-openhim
   - fhir-datastore-hapi-fhir
   - message-bus-kafka
   - analytics-datastore-elastic-search
   - monitoring
   - identity-access-manager-keycloak
+  - reverse-proxy-nginx
   
   # Future
   # - dashboard-visualiser-kibana
