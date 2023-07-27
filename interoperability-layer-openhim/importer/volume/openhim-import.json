@@ -90,7 +90,7 @@
           "forwardAuthHeader": false,
           "name": "SHR - Get/Create/Update Resource",
           "secured": false,
-          "host": "shr",
+          "host": "shared-health-record",
           "port": 3000,
           "path": "",
           "pathTransform": "s/SHR\\/fhir/fhir/g",

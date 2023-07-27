@@ -21,6 +21,8 @@ const jsonData = JSON.parse(
 
 const data = JSON.stringify(jsonData)
 
+console.log('Importing OpenHIM Config: ', OPENHIM_CORE_SERVICE_NAME, '  |  ', OPENHIM_MEDIATOR_API_PORT)
+
 const options = {
   protocol: 'https:',
   hostname: OPENHIM_CORE_SERVICE_NAME,
