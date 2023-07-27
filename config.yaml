@@ -5,17 +5,13 @@ logPath: /tmp/logs
 packages:
   # I-TECH
   - client-registry-opencr
-  - shared-health-record
-  - reverse-proxy-caddy
-  - openhim-mediator-omang-service
-  - openhim-mediator-fhir-translator
-  - interoperability-layer-openhim
   - fhir-datastore-hapi-fhir
-  - message-bus-kafka
-  - analytics-datastore-elastic-search
-  - monitoring
   - identity-access-manager-keycloak
+  - interoperability-layer-openhim
+  - message-bus-kafka
+  - monitoring
   - reverse-proxy-nginx
+  - shared-health-record
   
   # Future
   # - dashboard-visualiser-kibana
@@ -25,6 +21,7 @@ packages:
   # - kafka-unbundler-consumer
   # - analytics-datastore-clickhouse
   # - dashboard-visualiser-superset
+  # - analytics-datastore-elastic-search
   
   # Possibly Needed
   # - message-bus-helper-hapi-proxy
