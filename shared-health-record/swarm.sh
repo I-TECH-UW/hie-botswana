@@ -57,7 +57,9 @@ function initialize_package() {
 }
 
 function destroy_package() {
-  docker::service_destroy "${SERVICE_NAMES[@]}"
+  docker::stack_destroy $STACK
+
+  docker::prune_configs "shr"
 }
 
 main() {

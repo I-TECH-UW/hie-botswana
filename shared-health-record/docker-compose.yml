@@ -19,8 +19,12 @@ services:
 configs:
   shr_config:
     file: ./config/config.json
+    labels:
+      name: shr
   shr_mediator:
     file: ./config/mediator.json
+    labels:
+      name: shr
 
 networks:
   default:
