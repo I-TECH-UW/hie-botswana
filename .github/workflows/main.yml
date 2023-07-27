@@ -31,13 +31,13 @@ jobs:
         run: docker swarm init
 
       - name: Build local docker image of HIE
-        run: /build-image.sh local
+        run: ./build-image.sh local
 
       - name: Download instant CLI
-        run: /get-cli.sh linux latest
+        run: ./get-cli.sh linux latest
 
       - name: Boot up HIE 
-        run: /instant project init
+        run: ./instant project init
 
       - name: Cache containers
         uses: satackey/action-docker-layer-caching@v0.0.11
