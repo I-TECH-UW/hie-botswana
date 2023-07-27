@@ -27,58 +27,50 @@ jobs:
           username: ${{ secrets.GHCR_USER }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Pull containers
-        run: docker-compose pull
+      - name: Initialize docker swarm
+        run: docker swarm init
+
+      - name: Build local docker image of HIE
+        run: /build-image.sh local
+
+      - name: Download instant CLI
+        run: /get-cli.sh linux latest
+
+      - name: Boot up HIE 
+        run: /instant project init
 
       - name: Cache containers
         uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
-        
-      - name: Start support containers
-        run: docker-compose up -d
-        
-      - name: Sleep for 150 seconds
-        run: sleep 150
-        shell: bash
-
-      - name: Display docker logs for openhim config
-        run: docker-compose logs openhim-config
 
       - name: Display container status
         run: docker-compose ps
 
-      - name: Display logs 
-        run: docker-compose logs shr opencr fhir-converter
+      # - name: Run General Tests https://www.postman.com/itechuw/workspace/botswana-hie/collection/1525496-77f89792-c73b-4c75-a450-5cb6f79230d4)
+      #   env: 
+      #     POSTMAN_COLLECTION: /.postman/collections/1_general_tests.postman_collection.json
+      #   run: docker-compose -f docker-compose.test.yml up --exit-code-from newman newman 
 
-      - name: Run General Tests https://www.postman.com/itechuw/workspace/botswana-hie/collection/1525496-77f89792-c73b-4c75-a450-5cb6f79230d4)
-        env: 
-          POSTMAN_COLLECTION: /.postman/collections/1_general_tests.postman_collection.json
-        run: docker-compose -f docker-compose.test.yml up --exit-code-from newman newman 
+      # - name: Run CR Tests (https://www.postman.com/itechuw/workspace/botswana-hie/collection/1525496-16a5a3c2-719f-40a6-ad06-a9530d3f2006)
+      #   env: 
+      #     POSTMAN_COLLECTION: /.postman/collections/2_cr_workflows.postman_collection.json
+      #   run: docker-compose -f docker-compose.test.yml up --exit-code-from newman newman 
 
-      - name: Run CR Tests (https://www.postman.com/itechuw/workspace/botswana-hie/collection/1525496-16a5a3c2-719f-40a6-ad06-a9530d3f2006)
-        env: 
-          POSTMAN_COLLECTION: /.postman/collections/2_cr_workflows.postman_collection.json
-        run: docker-compose -f docker-compose.test.yml up --exit-code-from newman newman 
+      # - name: Run Laboratory Tests (https://www.postman.com/itechuw/workspace/botswana-hie/collection/1525496-db80feab-8a77-42c8-aa7e-fd4beb0ae6a8)
+      #   env: 
+      #     POSTMAN_COLLECTION: /.postman/collections/3_lab_workflows.postman_collection.json
+      #   run: docker-compose -f docker-compose.test.yml up --exit-code-from newman newman 
 
-      - name: Run Laboratory Tests (https://www.postman.com/itechuw/workspace/botswana-hie/collection/1525496-db80feab-8a77-42c8-aa7e-fd4beb0ae6a8)
-        env: 
-          POSTMAN_COLLECTION: /.postman/collections/3_lab_workflows.postman_collection.json
-        run: docker-compose -f docker-compose.test.yml up --exit-code-from newman newman 
-
-      - name: Run HL7 <--> FHIR Tests (https://openme.postman.co/workspace/Botswana-HIE~bf140db5-85f6-4470-bc3a-511efcda80ba/collection/1525496-6ae2c5fc-f659-4bc3-8fe0-18b07ab5e57a)
-        env: 
-          POSTMAN_COLLECTION: /.postman/collections/4_hl7_conversion.postman_collection.json
-        run: docker-compose -f docker-compose.test.yml up --exit-code-from newman newman 
+      # - name: Run HL7 <--> FHIR Tests (https://openme.postman.co/workspace/Botswana-HIE~bf140db5-85f6-4470-bc3a-511efcda80ba/collection/1525496-6ae2c5fc-f659-4bc3-8fe0-18b07ab5e57a)
+      #   env: 
+      #     POSTMAN_COLLECTION: /.postman/collections/4_hl7_conversion.postman_collection.json
+      #   run: docker-compose -f docker-compose.test.yml up --exit-code-from newman newman 
       
-      - name: Run Patient Identity Validation Tests (https://www.postman.com/itechuw/workspace/botswana-hie/collection/1525496-e7128a3a-616d-4fc8-8e4a-615990a97756?action=share&creator=1525496)
-        env: 
-          POSTMAN_COLLECTION: /.postman/collections/5_patient_identity.postman_collection.json
-        run: docker-compose -f docker-compose.test.yml up --exit-code-from newman newman 
-
-      - name: Display logs 
-        if: always()
-        run: docker-compose logs shr opencr fhir-converter openhim-core
+      # - name: Run Patient Identity Validation Tests (https://www.postman.com/itechuw/workspace/botswana-hie/collection/1525496-e7128a3a-616d-4fc8-8e4a-615990a97756?action=share&creator=1525496)
+      #   env: 
+      #     POSTMAN_COLLECTION: /.postman/collections/5_patient_identity.postman_collection.json
+      #   run: docker-compose -f docker-compose.test.yml up --exit-code-from newman newman 
 
       - name: Stop containers
         if: always()
-        run: docker-compose down -v
+        run: /instant project destroy

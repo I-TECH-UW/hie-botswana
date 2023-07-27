@@ -1,5 +1,5 @@
 projectName: hie-botswana
-image: itechuw/hie-botswana:local
+image: itechuw/hie-botswana
 logPath: /tmp/logs
 
 packages:

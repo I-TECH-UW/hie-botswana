@@ -14,7 +14,7 @@ version: '3.8'
 
 services:
   hie-botswana:
-    image: itechuw/hie-botswana:local
+    image: itechuw/hie-botswana:${VERSION-local}
     build:
       context: .
       dockerfile: Dockerfile
