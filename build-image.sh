@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -o allexport; source .env; set +o allexport
+set -o allexport; source ./.env; set +o allexport
 
 TAG_NAME=${1:-latest}
 TAG_VERSION=${VERSION:-latest}
