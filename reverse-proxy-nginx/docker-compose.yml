@@ -17,15 +17,6 @@ services:
         reservations:
           cpus: ${NGINX_CPU_RESERVE}
           memory: ${NGINX_MEMORY_RESERVE}
-    ports:
-      - target: 80
-        published: 80
-        protocol: tcp
-        mode: host
-      - target: 443
-        published: 443
-        protocol: tcp
-        mode: host
 
 networks:
   public:

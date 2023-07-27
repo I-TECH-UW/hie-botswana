@@ -7,6 +7,9 @@ services:
       - NODE_ENV=docker
     networks:
       - default
+      - hapi-fhir
+      - shr
+      - kafka
     configs:
       - source: shr_config
         target: /app/config/config_docker.json
@@ -19,4 +22,14 @@ configs:
     file: ./config/mediator.json
 
 networks:
+  default:
+  kafka:
+    external: true
+    name: kafka_public
+  hapi-fhir:
+    external: true
+    name: hapi-fhir_public
+  shr:
+    name: shr_public
+    external: true
   default:

@@ -13,112 +13,14 @@ version: '3.8'
 #    entrypoint: bash
 
 services:
-  caddy:
-    container_name: caddy
-    image: lucaslorentz/caddy-docker-proxy:latest
-    ports:
-      - 80:80
-      - 443:443
-    environment:
-      - CADDY_INGRESS_NETWORKS=hie
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - caddy-data:/data
-    restart: unless-stopped
-    networks:
-      - hie
-
-  # certbot:
-  #   image: certbot:local
-  #   container_name: certbot
-  #   environment:
-  #   - AWS_ACCESS_KEY_ID
-  #   - AWS_SECRET_ACCESS_KEY
-  #   - EMAIL
-  #   - ROOT_URL
-  #   volumes:
-  #   - certs:/etc/letsencrypt
-  #   - letsencrypt:/var/lib/letsencrypt
-  #   networks:
-  #   - hie
-  
-  ###
-  # OpenCR
-  ###
-  # opencr:
-  #   container_name: opencr
-  #   hostname: opencr
-  #   image: intrahealth/opencr:latest #76efe76
-  #   restart: unless-stopped
-  #   environment:
-  #     - NODE_ENV=docker
-  #     - HAPI_FHIR_URL=http://opencr-fhir:8080/fhir/metadata
-  #   networks:
-  #     - hie
-  #   volumes:
-  #     - ./configs/opencr/config.json:/src/server/config/config_docker.json
-  #     - ./configs/opencr/mediator.json:/src/server/config/mediator.json
-  #     - ./configs/opencr/decisionRules.json:/src/server/config/decisionRules.json
-  #     - ./configs/opencr/PatientRelationship.json:/src/resources/Relationships/PatientRelationship.json
-  #   labels:
-  #     caddy: opencr.bwhie.org
-  #     caddy.reverse_proxy: "{{ upstreams 3000 }}"
-
-      
-  # opencr-fhir:
-  #   image: hapiproject/hapi:v5.1.0
-  #   container_name: opencr-fhir
-  #   hostname: opencr-fhir
-  #   restart: unless-stopped
-  #   networks:
-  #     - hie
-  #   healthcheck:
-  #     test: "curl -sS http://opencr-fhir:8080/fhir/metadata || exit 1"
-  #     interval: 90s
-  #     timeout: 30s
-  #     retries: 3
-  #   ports:
-  #     - 8082:8080
-  #   volumes:
-  #     - cr-data:/data/hapi
-
-  es:
-    container_name: es
-    hostname: es
-    image: intrahealth/elasticsearch:latest
-    restart: unless-stopped
-    environment:
-      - node.name=es01
-      - discovery.type=single-node
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - es:/usr/share/elasticsearch/data
-    networks:
-      - hie
-    healthcheck:
-      test: "curl --silent --fail http://localhost:9200/_cluster/health || exit 1"
-
-  ###
+  hie-botswana:
+    image: itechuw/hie-botswana:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+  ###  
   # SHR
   ###
-  shr:
-    container_name: shr
-    hostname: shr
-    image: ghcr.io/i-tech-uw/shared-health-record:${SHR_VERSION-latest}
-    restart: unless-stopped
-    environment:
-      - NODE_ENV=docker
-    networks:
-      - hie
-    volumes:
-      - ./configs/shr/config.json:/app/config/config_docker.json
-      - ./configs/shr/mediator.json:/app/config/mediator_docker.json
-
   shr-fhir:
     image: hapiproject/hapi:latest-tomcat
     container_name: shr-fhir
@@ -138,65 +40,6 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
-    
-
-  ###
-  # OpenHIM
-  ###
-  openhim-core:
-    container_name: openhim-core
-    hostname: openhim-core
-    image: jembi/openhim-core:latest
-    restart: unless-stopped
-    environment:
-      mongo_url: "mongodb://mongo-db/openhim"
-      mongo_atnaUrl: "mongodb://mongo-db/openhim"
-      NODE_ENV: "development"
-    healthcheck:
-      test: "node /healthcheck.js"
-      interval: 20s
-      timeout: 20s
-      retries: 2
-    networks:
-      - hie
-    volumes:
-      - ./configs/openhim/healthcheck.js:/healthcheck.js
-      - ./configs/openhim/config.json:/app/config/default.json
-      - ./configs/certs:/certs
-    labels:
-      caddy_0: openhim-core.bwhie.org 
-      caddy_0.reverse_proxy: "{{ upstreams 8080}}"
-      caddy_0.reverse_proxy.transport: http
-      caddy_0.reverse_proxy.transport.tls_insecure_skip_verify:
-      caddy_1: openhim-ssl.bwhie.org
-      caddy_1.reverse_proxy: "{{ upstreams 5000 }}"
-      caddy_1.reverse_proxy.transport: http
-      caddy_1.reverse_proxy.transport.tls_insecure_skip_verify:
-      caddy_2: http://openhim-http.bwhie.org
-      caddy_2.reverse_proxy: "{{ upstreams 5001 }}"
-
-    ports:
-      - 5000:5000
-      - 5001:5001
-
-  openhim-console:
-    container_name: openhim-console
-    hostname: openhim-console
-    image: jembi/openhim-console:latest
-    restart: unless-stopped
-    volumes:
-      - ./configs/openhim-console/default.json:/usr/share/nginx/html/config/default.json
-    healthcheck:
-      test: "curl -sS http://openhim-console || exit 1"
-      interval: 10s
-      timeout: 60s
-      retries: 3
-    labels:
-      caddy: bwhie.org
-      caddy.reverse_proxy: "{{ upstreams 80 }}"
-
-    networks:
-      - hie
 
   # Loads Default OpenHIM Config
   openhim-config:

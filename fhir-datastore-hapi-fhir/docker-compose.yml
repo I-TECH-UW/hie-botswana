@@ -4,7 +4,7 @@ services:
   hapi-fhir:
     image: jembi/hapi:v5.7.0-wget
     networks:
-      mpi:
+      shr:
       public:
       default:
     environment:
@@ -37,8 +37,8 @@ services:
       start_period: 2m
 
 networks:
-  mpi:
-    name: mpi_public
+  shr:
+    name: shr_public
     external: true
   public:
     name: hapi-fhir_public

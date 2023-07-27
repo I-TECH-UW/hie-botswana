@@ -5,6 +5,7 @@ declare MODE=""
 declare COMPOSE_FILE_PATH=""
 declare UTILS_PATH=""
 declare SERVICE_NAMES=()
+declare STACK="shared-health-record"
 
 function init_vars() {
   ACTION=$1
@@ -26,11 +27,13 @@ function init_vars() {
   readonly COMPOSE_FILE_PATH
   readonly UTILS_PATH
   readonly SERVICE_NAMES
+  readonly STACK
 }
 
 # shellcheck disable=SC1091
 function import_sources() {
   source "${UTILS_PATH}/docker-utils.sh"
+  source "${UTILS_PATH}/config-utils.sh"
   source "${UTILS_PATH}/log.sh"
 }
 
@@ -42,10 +45,11 @@ function initialize_package() {
   else
     log info "Running package in PROD mode"
   fi
-
+  
+  log info "Deploying package with compose file: ${COMPOSE_FILE_PATH}/docker-compose.yml ${package_dev_compose_filename}"
+  
   (
-    docker::deploy_service "${COMPOSE_FILE_PATH}" "$package_dev_compose_filename"
-    docker::deploy_sanity "${SERVICE_NAMES[@]}"
+    docker::deploy_service $STACK "${COMPOSE_FILE_PATH}" "docker-compose.yml" "$package_dev_compose_filename"
   ) || {
     log error "Failed to deploy package"
     exit 1

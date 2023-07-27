@@ -1,6 +1,6 @@
 {
   "urn": "urn:mediator:bw-shared-health-record",
-  "version": "0.2.0",
+  "version": "0.8.0",
   "name": "BW Shared Health Record",
   "description": "Botswana Shared Health Record",
   "defaultChannelConfig": [

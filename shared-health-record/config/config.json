@@ -6,7 +6,7 @@
   "mediator": {
     "api": {
       "username": "root@openhim.org",
-      "password": "openhim",
+      "password": "instant101",
       "apiURL": "https://openhim-core:8080",
       "trustSelfSigned": true,
       "urn": "urn:mediator:bw-shared-health-record"
@@ -17,13 +17,13 @@
     }
   },
   "fhirServer": {
-    "baseURL": "http://shr-fhir:8080/fhir"
+    "baseURL": "http://hapi-fhir:8080/fhir"
   },
   "clientRegistryUrl": "http://openhim-core:5001/CR/fhir",
   "fhirConverterUrl": "http://openhim-core:5001/72f",
   "taskRunner": {
     "brokers": [
-      "kafka:9092"
+      "kafka-01:9092"
     ]    },
   "bwConfig": {
     "pimsSystemUrl": "https://api.openconceptlab.org/orgs/B-TECHBW/sources/PIMS-LAB-TEST-DICT/",
