@@ -52,6 +52,14 @@
       "passwordAlgorithm": "sha512",
       "passwordSalt": "ad7aff63dc3b5c4f347e35d111f0166a",
       "passwordHash": "ef907ec096cb64b9a194d3c17aa19df4dff6538305443395089bb694b6e2913197dd8feb527e254dea75af0eccd10d503cb521468e476c8c9fbdabf65ca53c14"
+    },
+    { 
+      "roles": ["shr"],
+      "clientID": "shr-client",
+      "name": "SHR Client",
+      "passwordAlgorithm": "sha512",
+      "passwordHash": "f113b998ec11f7a29cb2a55a7ff7264d92045c89113a3d00875ffb439a99f9b6797da71b0c1a57a5839ded9bb8bc3c825cb26788f2e4681f73e5bdf6bce0edc1",
+      "passwordSalt": "ddc029f1d9e69c8996dc0ace598f32e1"
     }
   ],
   "Channels": [
@@ -144,7 +152,7 @@
           "forwardAuthHeader": false,
           "name": "SHR - Get IPS",
           "secured": false,
-          "host": "shr",
+          "host": "shared-health-record",
           "port": 3000,
           "path": "",
           "pathTransform": "s/SHR\\/fhir\\/ips/ips/g",
@@ -191,7 +199,7 @@
           "forwardAuthHeader": false,
           "name": "SHR - Get IPS",
           "secured": false,
-          "host": "shr",
+          "host": "shared-health-record",
           "port": 3000,
           "path": "",
           "pathTransform": "s/SHR\\/lab/lab/g",
