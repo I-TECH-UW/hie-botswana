@@ -39,10 +39,6 @@ jobs:
       - name: Boot up HIE 
         run: ./instant project init --env-file .env.github
 
-      - name: Cache containers
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-
       - name: Display container status
         run: docker-compose ps
 
