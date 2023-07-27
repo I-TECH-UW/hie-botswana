@@ -4,18 +4,18 @@ services:
   opencr-postgres-1:
     image: bitnami/postgresql-repmgr:14
     environment:
-      POSTGRESQL_PASSWORD: ${HF_POSTGRESQL_PASSWORD}
-      POSTGRESQL_USERNAME: ${HF_POSTGRESQL_USERNAME}
-      POSTGRESQL_DATABASE: ${HF_POSTGRESQL_DATABASE}
-      REPMGR_NODE_NETWORK_NAME: postgres-1
-      REPMGR_PASSWORD: ${REPMGR_PASSWORD}
+      POSTGRESQL_PASSWORD: ${OPENCR_HF_POSTGRESQL_PASSWORD-instant101}
+      POSTGRESQL_USERNAME: ${OPENCR_HF_POSTGRESQL_USERNAME-admin}
+      POSTGRESQL_DATABASE: ${OPENCR_HF_POSTGRESQL_DATABASE-hapi}
+      REPMGR_NODE_NETWORK_NAME: opencr-postgres-1
+      REPMGR_PASSWORD: ${OPENCR_REPMGR_PASSWORD}
       REPMGR_RECONNECT_INTERVAL: 3
-      REPMGR_NODE_NAME: postgres-1
-      REPMGR_PRIMARY_HOST: ${REPMGR_PRIMARY_HOST}
-      REPMGR_PARTNER_NODES: ${REPMGR_PARTNER_NODES}
-      POSTGRESQL_POSTGRES_PASSWORD: ${HAPI_POSTGRES_PASSWORD}
+      REPMGR_NODE_NAME: opencr-postgres-1
+      REPMGR_PRIMARY_HOST: ${OPENCR_REPMGR_PRIMARY_HOST}
+      REPMGR_PARTNER_NODES: ${OPENCR_REPMGR_PARTNER_NODES}
+      POSTGRESQL_POSTGRES_PASSWORD: ${OPENCR_HAPI_POSTGRES_PASSWORD}
     volumes:
-      - "hapi-postgres-1-data:/bitnami/postgresql"
+      - "opencr-postgres-1-data:/bitnami/postgresql"
     deploy:
       replicas: 1
       resources:
@@ -28,7 +28,7 @@ services:
     networks:
       default:
       opencr-postgres:
-      pg_backup_net:
+
 
 volumes:
   opencr-postgres-1-data:
@@ -38,7 +38,4 @@ networks:
   opencr-postgres:
     name: opencr-postgres
     external: true
-  pg_backup_net:
-    name: pg_backup
-    driver: overlay
-    attachable: true
+

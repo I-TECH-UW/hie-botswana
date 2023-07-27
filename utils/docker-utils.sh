@@ -326,7 +326,12 @@ docker::deploy_service() {
 
     docker::prepare_config_digests "$DOCKER_COMPOSE_PATH/$DOCKER_COMPOSE_FILE" ${docker_compose_param//-c /}
     docker::ensure_external_networks_existence "$DOCKER_COMPOSE_PATH/$DOCKER_COMPOSE_FILE" ${docker_compose_param//-c /}
-
+    log info "Deploying stack $STACK_NAME with compose file: ${DOCKER_COMPOSE_PATH}/$DOCKER_COMPOSE_FILE ${docker_compose_param}"
+    log info "docker stack deploy \
+        -c ${DOCKER_COMPOSE_PATH}/$DOCKER_COMPOSE_FILE \
+        $docker_compose_param \
+        --with-registry-auth \
+        ${STACK_NAME}"
     try "docker stack deploy \
         -c ${DOCKER_COMPOSE_PATH}/$DOCKER_COMPOSE_FILE \
         $docker_compose_param \

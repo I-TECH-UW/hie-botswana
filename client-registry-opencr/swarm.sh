@@ -4,7 +4,7 @@ declare ACTION=""
 declare MODE=""
 declare COMPOSE_FILE_PATH=""
 declare UTILS_PATH=""
-declare SERVICE_NAMES=()
+declare STACK="client-registry-opencr"
 
 function init_vars() {
   ACTION=$1
@@ -17,43 +17,62 @@ function init_vars() {
 
   UTILS_PATH="${COMPOSE_FILE_PATH}/../utils"
 
-  SERVICE_NAMES=(
-    "client-registry-opencr"
-  )
-
   readonly ACTION
   readonly MODE
   readonly COMPOSE_FILE_PATH
   readonly UTILS_PATH
-  readonly SERVICE_NAMES
+  readonly STACK
 }
 
 # shellcheck disable=SC1091
 function import_sources() {
   source "${UTILS_PATH}/docker-utils.sh"
+  source "${UTILS_PATH}/config-utils.sh"
   source "${UTILS_PATH}/log.sh"
 }
 
 function initialize_package() {
+  local postgres_cluster_compose_filename=""
+  local postgres_dev_compose_filename=""
+  local hapi_fhir_dev_compose_filename=""
   local package_dev_compose_filename=""
-  if [[ "${MODE}" == "dev" ]]; then
+
+  if [ "${MODE}" == "dev" ]; then
     log info "Running package in DEV mode"
+    postgres_dev_compose_filename="docker-compose-postgres.dev.yml"
+    hapi_fhir_dev_compose_filename="docker-compose.dev.yml"
     package_dev_compose_filename="docker-compose.dev.yml"
   else
     log info "Running package in PROD mode"
   fi
 
+  if [ "${CLUSTERED_MODE}" == "true" ]; then
+    postgres_cluster_compose_filename="docker-compose-postgres.cluster.yml"
+  fi
+
   (
-    docker::deploy_service "${COMPOSE_FILE_PATH}" "$package_dev_compose_filename"
-    docker::deploy_sanity "${SERVICE_NAMES[@]}"
-  ) || {
-    log error "Failed to deploy package"
-    exit 1
-  }
+    # docker::deploy_service "$STACK" "${COMPOSE_FILE_PATH}" "docker-compose-postgres.yml" "$postgres_cluster_compose_filename" "$postgres_dev_compose_filename"
+    
+    docker::deploy_service "$STACK" "${COMPOSE_FILE_PATH}" "docker-compose-es.yml"
+
+    docker::deploy_service "$STACK" "${COMPOSE_FILE_PATH}" "docker-compose-hapi.yml" "$hapi_fhir_dev_compose_filename"
+
+    docker::deploy_service "$STACK" "${COMPOSE_FILE_PATH}" "docker-compose.yml" "$package_dev_compose_filename"
+  ) ||
+    {
+      log error "Failed to deploy package"
+      exit 1
+    }
 }
 
 function destroy_package() {
-  docker::service_destroy "${SERVICE_NAMES[@]}"
+  docker::stack_destroy "$STACK"
+
+  if [[ "${CLUSTERED_MODE}" == "true" ]]; then
+    log warn "Volumes are only deleted on the host on which the command is run. Postgres volumes on other nodes are not deleted"
+  fi
+
+  docker::prune_configs "hapi-fhir"
 }
 
 main() {
@@ -61,16 +80,19 @@ main() {
   import_sources
 
   if [[ "${ACTION}" == "init" ]] || [[ "${ACTION}" == "up" ]]; then
+    if [[ "${CLUSTERED_MODE}" == "true" ]]; then
+      log info "Running package in Cluster node mode"
+    else
     log info "Running package in Single node mode"
+    fi
 
     initialize_package
   elif [[ "${ACTION}" == "down" ]]; then
     log info "Scaling down package"
 
-    docker::scale_services_down "${SERVICE_NAMES[@]}"
+    docker::scale_services "$STACK" 0
   elif [[ "${ACTION}" == "destroy" ]]; then
     log info "Destroying package"
-
     destroy_package
   else
     log error "Valid options are: init, up, down, or destroy"

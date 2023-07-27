@@ -1,34 +1,38 @@
-hapi-fhir:
-    image: jembi/hapi:v5.7.0-wget
+version: "3.9"
+
+services:
+
+  opencr-hapi-fhir:
+    build:
+      context: ./
+      dockerfile: hapi.Dockerfile
+    image: itechuw/hapi-wget:v5.1.0
     networks:
-      mpi:
-      public:
+      opencr:
       default:
     environment:
-      - spring.datasource.url=jdbc:postgresql://${POSTGRES_REPLICA_SET}/hapi?targetServerType=primary
-      - spring.datasource.username=${HF_POSTGRESQL_USERNAME}
-      - spring.datasource.password=${HF_POSTGRESQL_PASSWORD}
-      - spring.datasource.driverClassName=org.postgresql.Driver
-      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQL95Dialect
-      - hapi.fhir.allow_external_references=true
-      - hapi.fhir.bulk_export_enabled=true
-      - hapi.fhir.enable_repository_validating_interceptor=true
       - JAVA_TOOL_OPTIONS=-Xmx2g
       - CATALINA_OPTS=-Xmx2g
     deploy:
-      replicas: ${HAPI_FHIR_INSTANCES}
+      replicas: ${HAPI_FHIR_INSTANCES-1}
       placement:
         max_replicas_per_node: 1
       resources:
         limits:
-          cpus: ${HAPI_FHIR_CPU_LIMIT}
-          memory: ${HAPI_FHIR_MEMORY_LIMIT}
+          cpus: ${HAPI_FHIR_CPU_LIMIT-1}
+          memory: ${HAPI_FHIR_MEMORY_LIMIT-2G}
         reservations:
-          cpus: ${HAPI_FHIR_CPU_RESERVE}
-          memory: ${HAPI_FHIR_MEMORY_RESERVE}
+          cpus: ${HAPI_FHIR_CPU_RESERVE-0.5}
+          memory: ${HAPI_FHIR_MEMORY_RESERVE-1G}
     healthcheck:
       test: /bin/wget --no-verbose --tries=1 --spider http://localhost:8080
-      interval: 30s
+      interval: 15s
       timeout: 5s
       retries: 5
       start_period: 2m
+
+networks:  
+  default:
+  opencr:
+    name: opencr
+    external: true

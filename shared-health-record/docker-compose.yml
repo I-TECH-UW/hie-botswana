@@ -10,6 +10,7 @@ services:
       - hapi-fhir
       - shr
       - kafka
+      - opencr
     configs:
       - source: shr_config
         target: /app/config/config_docker.json
@@ -31,5 +32,8 @@ networks:
     name: hapi-fhir_public
   shr:
     name: shr_public
+    external: true
+  opencr:
+    name: opencr
     external: true
   default:

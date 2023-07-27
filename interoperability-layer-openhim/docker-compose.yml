@@ -11,6 +11,7 @@ services:
       keycloak:
       public:
       default:
+      opencr:
     environment:
       - mongo_url=${OPENHIM_MONGO_URL}
       - mongo_atnaUrl=${OPENHIM_MONGO_ATNAURL}
@@ -71,6 +72,9 @@ networks:
     external: true
   keycloak:
     name: keycloak_public
+    external: true
+  opencr:
+    name: opencr
     external: true
   public:
     name: openhim_public
