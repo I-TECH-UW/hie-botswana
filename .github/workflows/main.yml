@@ -40,7 +40,7 @@ jobs:
         run: ./instant project init --env-file .env.github
 
       - name: Display container status
-        run: docker-compose ps
+        run: docker ps
 
       # - name: Run General Tests https://www.postman.com/itechuw/workspace/botswana-hie/collection/1525496-77f89792-c73b-4c75-a450-5cb6f79230d4)
       #   env: 
