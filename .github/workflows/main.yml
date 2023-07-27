@@ -37,7 +37,7 @@ jobs:
         run: ./get-cli.sh linux latest
 
       - name: Boot up HIE 
-        run: ./instant project init
+        run: ./instant project init --env-file .env.github
 
       - name: Cache containers
         uses: satackey/action-docker-layer-caching@v0.0.11
