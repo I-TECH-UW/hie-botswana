@@ -4,7 +4,7 @@
   "description": "A shared health record for storing longitudinal patient level health data from across the health system.",
   "type": "infrastructure",
   "version": "0.0.1",
-  "dependencies": ["interoperability-layer-openhim", "client-registry-opencr", "fhir-datastore-hapi-fhir"],
+  "dependencies": ["client-registry-opencr", "fhir-datastore-hapi-fhir"],
   "environmentVariables": {
     "OPENHIM_USERNAME": "root@openhim.org",
     "OPENHIM_PASSWORD": "instant101",
