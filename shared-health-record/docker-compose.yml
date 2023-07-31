@@ -3,8 +3,6 @@ version: '3.9'
 services:
   shared-health-record:
     image: ghcr.io/i-tech-uw/shared-health-record:${SHR_VERSION-latest}
-    environment:
-      - NODE_ENV=docker
     networks:
       - default
       - hapi-fhir

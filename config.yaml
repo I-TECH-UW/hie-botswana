@@ -1,5 +1,5 @@
 projectName: hie-botswana
-image: itechuw/hie-botswana
+image: itechuw/hie-botswana:v1.0.0
 logPath: /tmp/logs
 
 packages:
@@ -12,6 +12,8 @@ packages:
   - monitoring
   - reverse-proxy-nginx
   - shared-health-record
+  - openhim-mediator-fhir-converter
+  #- openhim-mediator-omang-service
   
   # Future
   # - dashboard-visualiser-kibana

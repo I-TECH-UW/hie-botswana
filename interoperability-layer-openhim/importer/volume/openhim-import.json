@@ -60,6 +60,14 @@
       "passwordAlgorithm": "sha512",
       "passwordHash": "f113b998ec11f7a29cb2a55a7ff7264d92045c89113a3d00875ffb439a99f9b6797da71b0c1a57a5839ded9bb8bc3c825cb26788f2e4681f73e5bdf6bce0edc1",
       "passwordSalt": "ddc029f1d9e69c8996dc0ace598f32e1"
+    },
+    {
+      "roles": ["test"],
+      "clientID": "pims-client",
+      "name": "PIMS Client",
+      "passwordAlgorithm": "sha512",
+      "passwordHash": "57dee175ee6087211ee2b1de15b102b9e66245ce7c3a4219f9408cf7f9d82ea93c2863b4f3be5f725b66f8f1db2c8250ff2a9f7fb3dd3528f3803e1902fc57f9",
+      "passwordSalt": "054e055ae69bca813684143bcfce9ce0"
     }
   ],
   "Channels": [
@@ -314,7 +322,7 @@
           "forwardAuthHeader": false,
           "name": "Send to Translator ",
           "secured": false,
-          "host": "fhir-converter",
+          "host": "openhim-mediator-fhir-converter",
           "port": 2019,
           "path": "",
           "pathTransform": "s/72f/api/g",
@@ -370,7 +378,7 @@
           "forwardAuthHeader": false,
           "name": "Send to Translator ",
           "secured": false,
-          "host": "fhir-converter",
+          "host": "openhim-mediator-fhir-converter",
           "port": 2019,
           "path": "",
           "pathTransform": "s/f27/api/convert/fhir/g",
@@ -423,7 +431,7 @@
       "routes": [
         {
           "name": "BDRS API",
-          "host": "omang-api",
+          "host": "openhim-mediator-omang-service",
           "port": "80",
           "type": "http",
           "forwardAuthHeader": false,

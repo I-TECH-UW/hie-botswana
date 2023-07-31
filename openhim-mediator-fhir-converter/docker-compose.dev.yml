@@ -3,6 +3,6 @@ version: '3.9'
 services:
   openhim-mediator-fhir-converter:
     ports:
-      - target: 8080
-        published: 8081
+      - target: 2019
+        published: 2019
         mode: host
