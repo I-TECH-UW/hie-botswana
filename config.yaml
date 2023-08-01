@@ -1,5 +1,5 @@
 projectName: hie-botswana
-image: itechuw/hie-botswana:v1.0.0
+image: itechuw/hie-botswana:v1.0.1-alpha
 logPath: /tmp/logs
 
 packages:
