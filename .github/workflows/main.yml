@@ -48,6 +48,10 @@ jobs:
       - name: Login to Postman CLI
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       
+      - name: Sleep for 150 seconds
+        run: sleep 150
+        shell: bash
+        
       - name: Run General API Test Collection
         run: |
           postman collection run --verbose --delay-request 1000 --timeout-request 1000 -k "1525496-77f89792-c73b-4c75-a450-5cb6f79230d4" -e "1525496-a3f83e5d-773b-4186-9422-08bb01d07131"
