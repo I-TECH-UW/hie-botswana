@@ -3,6 +3,6 @@ version: '3.9'
 services:
   client-registry-opencr:
     ports:
-      - target: 8080
-        published: 8081
+      - target: 3000
+        published: 3002
         mode: host

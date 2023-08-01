@@ -75,7 +75,7 @@ function add_insecure_configs() {
 
   log info "Updating nginx service: adding config file..."
   try \
-    "docker service update --config-add source=${TIMESTAMPED_NGINX},target=/etc/nginx/nginx.conf ${STACK}_$SERVICE_NAMES" \
+    "docker service update --config-add source=${TIMESTAMPED_NGINX},target=/etc/nginx/nginx.conf ${STACK}_${SERVICE_NAMES}" \
     throw \
     "Error updating ${SERVICE_NAMES} service"
   overwrite "Updating nginx service: adding config file... Done"

@@ -4,5 +4,5 @@ services:
   shared-health-record:
     ports:
       - target: 3000
-        published: 3000
+        published: 3001
         mode: host
