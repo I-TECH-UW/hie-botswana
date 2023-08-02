@@ -3,17 +3,29 @@ version: '3.9'
 services:
   omangsvc:
     image: ghcr.io/i-tech-uw/omangsvc:${OMANG_SVC_VERSION-latest}
-    restart: unless-stopped
-    volumes:
-      - ./configs/omang/appsettings.json:/app/appsettings.json
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      update_config:
+        parallelism: 1
+        delay: 5s
+        order: start-first
+    configs:
+      - source: omangsvc_appsettings
+        target: /app/appsettings.json
     networks:
-      - hie
-    labels:
-      - 'traefik.enable=true'
-      - "traefik.http.routers.omang.tls.certresolver=${PROVIDER}"
-      - 'traefik.docker.network=hie-botswana_hie'
-      - 'traefik.http.routers.omang.tls=true'
-      - 'traefik.http.routers.omang.entrypoints=web-secure'
-      - 'traefik.http.routers.omang.rule=Host(`omang.${ROOT_URL}`)'
+      - openhim
     environment:
       - TZ=GMT
+configs:
+  omangsvc_appsettings:
+    file: ./config/appsettings.json
+networks:
+  default:
+  openhim:
+    external: true
+    name: openhim_public

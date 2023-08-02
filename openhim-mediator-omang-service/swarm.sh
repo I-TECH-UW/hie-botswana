@@ -39,9 +39,12 @@ function import_sources() {
 
 function initialize_package() {
   local package_dev_compose_filename=""
+  local oracle_dev_compose_filename=""
+
   if [[ "${MODE}" == "dev" ]]; then
     log info "Running package in DEV mode"
     package_dev_compose_filename="docker-compose.dev.yml"
+    oracle_dev_compose_filename="docker-compose.oracle.dev.yml"
   else
     log info "Running package in PROD mode"
   fi
@@ -49,6 +52,7 @@ function initialize_package() {
   log info "Deploying package with compose file: ${COMPOSE_FILE_PATH}/docker-compose.yml ${package_dev_compose_filename}"
   
   (
+    docker::deploy_service $STACK "${COMPOSE_FILE_PATH}" "docker-compose.oracle.yml" "$oracle_dev_compose_filename"
     docker::deploy_service $STACK "${COMPOSE_FILE_PATH}" "docker-compose.yml" "$package_dev_compose_filename"
   ) || {
     log error "Failed to deploy package"

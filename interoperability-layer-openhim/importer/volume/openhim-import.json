@@ -405,7 +405,7 @@
       "routes": [
         {
           "name": "Omang API",
-          "host": "omang-api",
+          "host": "omangsvc",
           "port": "80",
           "type": "http",
           "forwardAuthHeader": false,
@@ -431,7 +431,7 @@
       "routes": [
         {
           "name": "BDRS API",
-          "host": "openhim-mediator-omang-service",
+          "host": "omangsvc",
           "port": "80",
           "type": "http",
           "forwardAuthHeader": false,

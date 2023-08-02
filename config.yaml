@@ -13,7 +13,7 @@ packages:
   - reverse-proxy-nginx
   - shared-health-record
   - openhim-mediator-fhir-converter
-  #- openhim-mediator-omang-service
+  - openhim-mediator-omang-service
   
   # Future
   # - dashboard-visualiser-kibana
