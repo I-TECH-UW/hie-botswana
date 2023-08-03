@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  client-registry-opencr:
+  opencr:
     ports:
       - target: 3000
         published: 3002
