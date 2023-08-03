@@ -4,5 +4,5 @@ services:
   opencr-hapi-fhir:
     ports:
       - target: 8080
-        published: 3447
+        published: 3448
         mode: host
