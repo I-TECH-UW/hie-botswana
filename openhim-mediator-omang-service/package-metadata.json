@@ -4,6 +4,6 @@
   "description": "Service for Patient Identity",
   "type": "use-case",
   "version": "0.0.1",
-  "dependencies": ["interoperability-layer-openhim"],
+  "dependencies": [],
   "environmentVariables": {}
 }
