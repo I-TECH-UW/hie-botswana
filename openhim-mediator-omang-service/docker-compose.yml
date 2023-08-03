@@ -29,3 +29,6 @@ networks:
   openhim:
     external: true
     name: openhim_public
+  oracle:
+    external: true
+    name: oracle

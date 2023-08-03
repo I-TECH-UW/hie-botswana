@@ -23,6 +23,7 @@ services:
       - default
       - oracle
 networks:
+  default:
   oracle:
     external: true
     name: oracle
