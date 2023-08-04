@@ -16,12 +16,18 @@ services:
     environment:
       - ORACLE_ALLOW_REMOTE=true
       - TZ=GMT
-    volumes:
-      - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-
+    configs:
+      - source: init_sql
+        target: /docker-entrypoint-initdb.d/init.sql
     networks:
       - default
       - oracle
+configs:
+  init_sql:
+    file: ./config/init.sql
+    name: init_sql-${init_sql_DIGEST:?err}
+    labels:
+      name: oracle
 networks:
   default:
   oracle:
