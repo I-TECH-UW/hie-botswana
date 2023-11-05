@@ -75,7 +75,7 @@ function add_insecure_configs() {
 
   log info "Updating nginx service: adding config file..."
   try \
-    "docker service update --config-add source=${TIMESTAMPED_NGINX},target=/etc/nginx/nginx.conf ${STACK}_$SERVICE_NAMES" \
+    "docker service update --config-add source=${TIMESTAMPED_NGINX},target=/etc/nginx/nginx.conf ${STACK}_${SERVICE_NAMES}" \
     throw \
     "Error updating ${SERVICE_NAMES} service"
   overwrite "Updating nginx service: adding config file... Done"
@@ -110,7 +110,13 @@ function initialize_package() {
       deploy_nginx "secure"
 
       # shellcheck disable=SC1091
-      source "${COMPOSE_FILE_PATH}/set-secure-mode.sh"
+      if [[ "${SELF_SIGNED}" == "true" ]]; then
+        log info "Running package in SELF-SIGNED mode"
+
+        source "${COMPOSE_FILE_PATH}/set-secure-mode-selfsigned.sh"
+      else
+        source "${COMPOSE_FILE_PATH}/set-secure-mode.sh"
+      fi
     ) ||
       {
         log error "Failed to deploy package in SECURE MODE"

@@ -10,7 +10,7 @@ packages:
   - interoperability-layer-openhim
   - message-bus-kafka
   - monitoring
-  - reverse-proxy-traefik
+  - reverse-proxy-nginx
   - shared-health-record
   - openhim-mediator-fhir-converter
   - openhim-mediator-omang-service

@@ -19,6 +19,7 @@ services:
         target: /app/appsettings.json
     networks:
       - openhim
+      - oracle
     environment:
       - TZ=GMT
 configs:

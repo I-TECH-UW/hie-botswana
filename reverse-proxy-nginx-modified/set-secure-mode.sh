@@ -127,6 +127,8 @@ function update_nginx_real_certificates() {
           --secret-rm ${curr_priv_key_name} \
           --secret-add source=${NEWER_TIMESTAMP}-fullchain.pem,target=/run/secrets/fullchain.pem \
           --secret-add source=${NEWER_TIMESTAMP}-privkey.pem,target=/run/secrets/privkey.pem \
+          --publish-add published=80,target=80 \
+          --publish-add published=443,target=443 \
           ${STACK}_$SERVICE_NAMES" \
         throw \
         "Error updating $SERVICE_NAMES service"

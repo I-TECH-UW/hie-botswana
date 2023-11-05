@@ -2,7 +2,13 @@ version: '3.9'
 
 services:
   shared-health-record:
+    image: ghcr.io/i-tech-uw/shared-health-record:debug
+
     ports:
-      - target: 3000
-        published: 3001
-        mode: host
+      - 4000:3000
+      - 3001:3001
+      - 3002:3001
+      - '9230:9230'
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    entrypoint: node --inspect=0.0.0.0:9230 /app/dist/app.js

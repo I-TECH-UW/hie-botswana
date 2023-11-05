@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   shared-health-record:
-    image: itechuw/shared-health-record:debug
+    image: ghcr.io/i-tech-uw/shared-health-record:latest
     networks:
       - default
       - hapi-fhir
@@ -16,15 +16,15 @@ services:
         target: /app/config/mediator_docker.json
     deploy:
       restart_policy:
-        condition: on-failure
+        condition: any
         delay: 5s
       resources:
         limits:
-          cpus: '0.5'
-          memory: 512M
+          cpus: '1'
+          memory: 2G
         reservations:
-          cpus: '0.25'
-          memory: 256M
+          cpus: '.5'
+          memory: 1G
 configs:
   shr_config:
     file: ./config/config.json
