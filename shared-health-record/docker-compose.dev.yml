@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   shared-health-record:
-    image: ghcr.io/i-tech-uw/shared-health-record:debug
+    image: itechuw/shared-health-record:debug
 
     ports:
       - 4000:3000

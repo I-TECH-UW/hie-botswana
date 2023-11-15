@@ -1,7 +1,7 @@
 {
   "app": {
     "port": 3000,
-    "mllpPort": 3001
+    "mllpPort": 3001  
   },
   "mediator": {
     "api": {
@@ -26,9 +26,18 @@
       "kafka-01:9092"
     ]    },
   "bwConfig": {
-    "pimsSystemUrl": "https://api.openconceptlab.org/orgs/B-TECHBW/sources/PIMS-LAB-TEST-DICT/",
+    "pimsSystemUrl": "https://api.openconceptlab.org/orgs/I-TECH-UW/sources/PIMSLAB/",
+    "ipmsSystemUrl": "https://api.openconceptlab.org/orgs/I-TECH-UW/sources/IPMSLAB/",
+    "cielSystemUrl": "https://openconceptlab.org/orgs/CIEL/sources/CIEL",
+    "loincSystemUrl": "https://api.openconceptlab.org/orgs/Regenstrief/sources/LOINC/",
     "omangSystemUrl": "http://moh.bw.org/ext/identifier/omang",
     "oclUrl": "https://api.openconceptlab.org",
+    "facilityCodeSystemUrl": "http://moh.bw.org/ext/identifier/facility-code",
+    "ipmsProviderSystemUrl": "http://moh.bw.org/ext/ipms-provider",
+    "ipmsPatientTypeSystemUrl": "http://moh.bw.org/ext/ipms-patient-type",
+    "ipmsPatientStatusSystemUrl": "http://moh.bw.org/ext/ipms-patient-status",
+    "ipmsXLocationSystemUrl": "http://moh.bw.org/ext/ipms-xlocation",
+    "ipmsOrderTypeSystemUrl": "http://moh.bw.org/ext/ipms-order-type",
     "requestTimeout": 60000,
     "toIpmsAdtTemplate": "ADT_A04_TO_IPMS.hbs",
     "fromIpmsAdtTemplate": "ADT_A04_FROM_IPMS.hbs",
