@@ -5,5 +5,7 @@
   "type": "use-case",
   "version": "0.0.1",
   "dependencies": [],
-  "environmentVariables": {}
+  "environmentVariables": {
+    "OMANGSVC_VERSION": "latest"
+  }
 }
