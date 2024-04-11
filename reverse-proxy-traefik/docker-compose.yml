@@ -3,7 +3,7 @@ version: '3.9'
 services:
   # Proxies requests to internal services
   reverse-proxy-traefik:
-    image: traefik:v2.8.3
+    image: traefik:latest
     deploy:
       resources:
         limits:
@@ -30,12 +30,12 @@ services:
         - traefik.http.middlewares.https-redirect.redirectscheme.permanent=true
         # traefik-http set up only to use the middleware to redirect to https
         # Uses the environment variable DOMAIN
-        - traefik.http.routers.traefik-public-http.rule=Host(`hie-pilot.gov.bw`) && PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+        - traefik.http.routers.traefik-public-http.rule=Host(`localhost`) && PathPrefix(`/dashboard`) || PathPrefix(`/api`)
         - traefik.http.routers.traefik-public-http.entrypoints=web
         - traefik.http.routers.traefik-public-http.middlewares=https-redirect
         # traefik-https the actual router using HTTPS
         # Uses the environment variable DOMAIN
-        - traefik.http.routers.traefik-public-https.rule=Host(`hie-pilot.gov.bw`) && PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+        - traefik.http.routers.traefik-public-https.rule=Host(`localhost`) && PathPrefix(`/dashboard`) || PathPrefix(`/api`)
         - traefik.http.routers.traefik-public-https.tls=true
         # Use the special Traefik service api@internal with the web UI/Dashboard
         - traefik.http.routers.traefik-public-https.service=api@internal
@@ -50,8 +50,17 @@ services:
         max_attempts: 3
         window: 120s
     ports:
-      - '80:80'
-      - '443:443'
+      - target: 8080
+        published: 8080
+        mode: host
+
+      - target: 80
+        published: 80
+        mode: host
+      
+      - target: 443
+        published: 443
+        mode: host
     configs:
       - source: certs.yml
         target: /etc/traefik/dynamic_conf/certs.yml
@@ -85,10 +94,11 @@ services:
       # Enable the Traefik log, for configurations and errors
       - --log
       - --log.level=DEBUG
-      # Enable the Dashboard and API
-      - --api
-      - --api.dashboard=true
-      - --api.insecure=false
+      # # Enable the Dashboard and API
+      # - --api
+      # - --api.dashboard=true
+      - --api.insecure=true
+
 
 configs:
   certs.yml:

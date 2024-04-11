@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   shared-health-record:
-    image: itechuw/shared-health-record:${SHARED_HEALTH_RECORD_VERSION-latest}
+    image: itechuw/shared-health-record:${SHARED_HEALTH_RECORD_VERSION}
     networks:
       - default
       - hapi-fhir
@@ -49,5 +49,4 @@ networks:
   opencr:
     name: opencr
     external: true
-  default:
   

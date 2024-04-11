@@ -24,11 +24,27 @@ services:
       - keycloak
       - opencr
       - default
+      - traefik-public
+      - opencr-postgres
     deploy:
       replicas: 1    
       restart_policy:
-        condition: on-failure
-
+        condition: any
+      labels:
+        - 'traefik.enable=true'
+        - 'traefik.docker.network=traefik-public'
+        - 'traefik.http.routers.opencr.tls=true'
+        - 'traefik.http.routers.opencr.entrypoints=web-secure'
+        - 'traefik.http.services.opencr.loadbalancer.server.port=3000'
+        - 'traefik.http.routers.opencr.rule=Host(`localhost`) && PathPrefix(`/crux`) || PathPrefix(`/ocrux`)'
+        - 'traefik.http.services.opencr.loadbalancer.server.scheme=http'
+        - 'traefik.http.routers.opencr.service=opencr'
+    healthcheck:
+      test: /usr/bin/wget --no-verbose --tries=1 --spider http://localhost:3000/crux/
+      interval: 30s
+      timeout: 20s
+      retries: 5
+      start_period: 1m
 configs:
   config.json:
     file: ./config/config.json
@@ -60,5 +76,11 @@ networks:
     external: true
   opencr:
     name: opencr
+    external: true
+  traefik-public:
+    name: traefik-public
+    external: true
+  opencr-postgres:
+    name: opencr-postgres
     external: true
   default:

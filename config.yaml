@@ -14,6 +14,7 @@ packages:
   - shared-health-record
   - openhim-mediator-fhir-converter
   - openhim-mediator-omang-service
+  - reverse-proxy-traefik
   
   # Future
   # - dashboard-visualiser-kibana
@@ -41,3 +42,30 @@ packages:
 #       envFiles:
 #         - <<env-file-1>>
 #         - <<env-file-2>>
+profiles:
+    - name: dev
+      packages:
+        - reverse-proxy-traefik
+        - fhir-datastore-hapi-fhir
+        - identity-access-manager-keycloak
+        - interoperability-layer-openhim
+        - client-registry-opencr
+        - message-bus-kafka
+        - openhim-mediator-omang-service
+        - shared-health-record
+        - openhim-mediator-fhir-converter
+        - message-bus-kafka
+        - monitoring
+      envFiles:
+        - .env.hie
+      dev: false
+      only: false
+      
+    - name: omang
+      packages:
+        - reverse-proxy-traefik
+        - interoperability-layer-openhim
+      envFiles:
+        - .env.hie
+      dev: false
+      only: false
