@@ -28,6 +28,7 @@ services:
     networks:
       default:
       opencr-postgres:
+      opencr:
 
 
 volumes:
@@ -37,5 +38,8 @@ networks:
   default:
   opencr-postgres:
     name: opencr-postgres
+    external: true
+  opencr:
+    name: opencr
     external: true
 

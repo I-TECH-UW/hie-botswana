@@ -6,7 +6,7 @@
   "version": "0.0.1",
   "dependencies": [],
   "environmentVariables": {
-    "SHARED_HEALTH_RECORD_VERSION": "v0.13.0",
+    "SHARED_HEALTH_RECORD_VERSION": "debug-1",
     "OPENHIM_USERNAME": "root@openhim.org",
     "OPENHIM_PASSWORD": "instant101",
     "OPENHIM_URL": "https://openhim-core:8080",
