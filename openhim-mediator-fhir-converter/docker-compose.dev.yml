@@ -2,6 +2,8 @@ version: '3.9'
 
 services:
   openhim-mediator-fhir-converter:
+    image: itechuw/openhim-mediator-fhir-converter:debug
+
     ports:
       - target: 9229
         published: 9229

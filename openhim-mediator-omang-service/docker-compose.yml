@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   omangsvc:
-    image: ghcr.io/i-tech-uw/omangsvc:${OMANG_SVC_VERSION-latest}
+    image: itechuw/omangsvc_original:${OMANG_SVC_VERSION-latest}
     deploy:
       replicas: 1
       restart_policy:

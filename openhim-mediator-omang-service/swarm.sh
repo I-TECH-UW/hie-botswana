@@ -52,7 +52,7 @@ function initialize_package() {
   log info "Deploying package with compose file: ${COMPOSE_FILE_PATH}/docker-compose.yml ${package_dev_compose_filename}"
   
   (
-    docker::deploy_service $STACK "${COMPOSE_FILE_PATH}" "docker-compose.oracle.yml" "$oracle_dev_compose_filename"
+    # docker::deploy_service $STACK "${COMPOSE_FILE_PATH}" "docker-compose.oracle.yml" "$oracle_dev_compose_filename"
     docker::deploy_service $STACK "${COMPOSE_FILE_PATH}" "docker-compose.yml" "$package_dev_compose_filename"
   ) || {
     log error "Failed to deploy package"

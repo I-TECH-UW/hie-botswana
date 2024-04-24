@@ -1,7 +1,7 @@
-version: '3.9'
-
+version: '3.8'
+#export $(cat <env-file.env> | xargs) && docker stack deploy         -c ./client-registry-opencr/docker-compose.yml          -c ./client-registry-opencr/docker-compose.dev.yml         --with-registry-auth         client-registry-opencr
 services:
   opencr:
     ports:
       - target: 3000
-        published: 3002
+        published: 3003

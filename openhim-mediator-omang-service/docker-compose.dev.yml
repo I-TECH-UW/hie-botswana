@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   omangsvc:
+    image: itechuw/omangsvc_original:dev2
     ports:
       - target: 80
         published: 8098

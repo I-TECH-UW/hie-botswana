@@ -1,9 +1,9 @@
-version: '3.9'
+version: '3.8'
 
 services:
   # docker-compose -f client-registry-opencr/docker-compose.yml --env-file client-registry-opencr/.env.build build
   opencr:
-    image: itechuw/opencr:latest
+    image: itechuw/opencr:local
     build:
       context: .
       dockerfile: Dockerfile

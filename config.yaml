@@ -5,6 +5,7 @@ logPath: /tmp/logs
 packages:
   # I-TECH
   - client-registry-opencr
+  - database-postgres
   - fhir-datastore-hapi-fhir
   - identity-access-manager-keycloak
   - interoperability-layer-openhim
