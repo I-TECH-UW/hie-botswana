@@ -4,7 +4,6 @@
   "description": "A FHIR compliant server for the platform",
   "type": "infrastructure",
   "version": "0.0.1",
-  "dependencies": ["database-postgres"],
   "environmentVariables": {
     "HAPI_FHIR_INSTANCES": "1",
     "HAPI_FHIR_MAX_REPLICAS_PER_NODE": "1",

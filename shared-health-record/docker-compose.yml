@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   shared-health-record:
     image: itechuw/shared-health-record:v0.13.0

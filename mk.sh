@@ -5,8 +5,6 @@
 # ./instant package remove -n message-bus-kafka --env-file .env
 # ./instant package init -n message-bus-kafka --env-file .env
 
-
-
 # ./instant package remove -n database-postgres --env-file .env
 # ./instant package init -n database-postgres --env-file .env
 
