@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # Proxies requests to internal services
+  reverse-proxy-ocl:
+    image: nginx:stable
+    hostname: ocl-cache
+    networks:
+      public:
+    deploy:
+      replicas: ${REVERSE_PROXY_INSTANCES}
+      placement:
+        max_replicas_per_node: 1
+      resources:
+        limits:
+          cpus: ${NGINX_CPU_LIMIT}
+          memory: ${NGINX_MEMORY_LIMIT}
+        reservations:
+          cpus: ${NGINX_CPU_RESERVE}
+          memory: ${NGINX_MEMORY_RESERVE}
+    configs:
+      - source: nginx_conf
+        target: /etc/nginx/nginx.conf
+
+configs:
+  nginx_conf:
+    file: ./config/nginx.conf
+    labels:
+      name: nginx-ocl
+
+networks:
+  public:
+    name: reverse-proxy-ocl_public
+    external: true

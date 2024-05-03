@@ -12,6 +12,7 @@ packages:
   - message-bus-kafka
   - monitoring
   - reverse-proxy-traefik
+  - reverse-proxy-ocl
   - shared-health-record
   - openhim-mediator-fhir-converter
   - openhim-mediator-omang-service
