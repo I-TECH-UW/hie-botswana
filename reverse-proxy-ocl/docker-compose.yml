@@ -18,6 +18,8 @@ services:
         reservations:
           cpus: ${NGINX_CPU_RESERVE}
           memory: ${NGINX_MEMORY_RESERVE}
+    volumes:
+      - /data/nginx/cache
     configs:
       - source: nginx_conf
         target: /etc/nginx/nginx.conf

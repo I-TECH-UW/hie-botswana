@@ -17,11 +17,11 @@
 # ./instant package remove -n openhim-mediator-fhir-converter --env-file .env
 # ./instant package init -n openhim-mediator-fhir-converter --env-file .env -d
 
-./instant package remove -n reverse-proxy-ocl --env-file .env
-./instant package init -n reverse-proxy-ocl --env-file .env
+# ./instant package remove -n reverse-proxy-ocl --env-file .env
+# ./instant package init -n reverse-proxy-ocl --env-file .env
 
-# ./instant package remove -n shared-health-record --env-file .env
-# ./instant package init -n shared-health-record --env-file .env -d
+./instant package remove -n shared-health-record --env-file .env
+./instant package init -n shared-health-record --env-file .env -d
 
 # ./instant package remove -n openhim-mediator-omang-service --env-file .env 
 # ./instant package init -n openhim-mediator-omang-service --env-file .env -d

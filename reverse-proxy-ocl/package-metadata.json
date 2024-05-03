@@ -6,7 +6,7 @@
   "version": "0.0.1",
   "dependencies": [],
   "environmentVariables": {
-    "REVERSE_PROXY_INSTANCES": "1",
+    "REVERSE_PROXY_INSTANCES": 1,
     "NGINX_CPU_LIMIT": "0",
     "NGINX_CPU_RESERVE": "0.05",
     "NGINX_MEMORY_LIMIT": "3G",
