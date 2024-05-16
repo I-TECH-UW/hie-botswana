@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
   # Proxies requests to internal services
-  reverse-proxy-ocl:
+  ocl-cache:
     image: nginx:stable
-    hostname: ocl-cache
     networks:
       public:
+      openhim-public:
     deploy:
       replicas: ${REVERSE_PROXY_INSTANCES}
       placement:
@@ -24,6 +24,7 @@ services:
       - source: nginx_conf
         target: /etc/nginx/nginx.conf
 
+
 configs:
   nginx_conf:
     file: ./config/nginx.conf
@@ -33,4 +34,7 @@ configs:
 networks:
   public:
     name: reverse-proxy-ocl_public
+    external: true
+  openhim-public:
+    name: openhim_public
     external: true

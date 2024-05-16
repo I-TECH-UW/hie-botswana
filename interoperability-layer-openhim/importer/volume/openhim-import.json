@@ -130,6 +130,61 @@
       "methods": [
         "GET",
         "POST",
+        "PUT",
+        "PATCH"
+      ],
+      "type": "http",
+      "allow": [
+        "test"
+      ],
+      "whitelist": [],
+      "authType": "public",
+      "matchContentTypes": [],
+      "properties": [],
+      "txViewAcl": [],
+      "txViewFullAcl": [],
+      "txRerunAcl": [],
+      "status": "enabled",
+      "rewriteUrls": false,
+      "addAutoRewriteRules": true,
+      "autoRetryEnabled": false,
+      "autoRetryPeriodMinutes": 60,
+      "requestBody": true,
+      "responseBody": true,
+      "name": "OCL Cache",
+      "description": "OCL Cache",
+      "urlPattern": "^/OCL.*$",
+      "routes": [
+        {
+          "type": "http",
+          "status": "enabled",
+          "forwardAuthHeader": false,
+          "name": "OCL Cache",
+          "secured": false,
+          "host": "ocl-cache",
+          "port": 3000,
+          "path": "",
+          "pathTransform": "s/OCL//g",
+          "primary": true,
+          "username": "",
+          "password": ""
+        }
+      ],
+      "priority": 1,
+      "alerts": [],
+      "rewriteUrlsConfig": [],
+      "matchContentJson": null,
+      "matchContentRegex": null,
+      "matchContentValue": null,
+      "matchContentXpath": null,
+      "pollingSchedule": null,
+      "tcpHost": null,
+      "tcpPort": null
+    },
+    {
+      "methods": [
+        "GET",
+        "POST",
         "PUT"
       ],
       "type": "http",

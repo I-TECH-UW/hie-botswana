@@ -14,11 +14,11 @@
 # ./instant package remove -n client-registry-opencr --env-file .env
 # ./instant package init -n client-registry-opencr --env-file .env
 
-# ./instant package remove -n openhim-mediator-fhir-converter --env-file .env
-# ./instant package init -n openhim-mediator-fhir-converter --env-file .env -d
+# ./instant package down -n openhim-mediator-fhir-converter --env-file .env
+# ./instant package up -n openhim-mediator-fhir-converter --env-file .env -d
 
-# ./instant package remove -n reverse-proxy-ocl --env-file .env
-# ./instant package init -n reverse-proxy-ocl --env-file .env
+# ./instant package down -n reverse-proxy-ocl --env-file .env
+# ./instant package up -n reverse-proxy-ocl --env-file .env
 
 ./instant package remove -n shared-health-record --env-file .env
 ./instant package init -n shared-health-record --env-file .env -d
@@ -28,3 +28,6 @@
 
 # ./instant package down -n interoperability-layer-openhim --env-file .env
 # ./instant package up -n interoperability-layer-openhim --env-file .env
+
+# ./instant package remove -n interoperability-layer-openhim --env-file .env
+# ./instant package init -n interoperability-layer-openhim --env-file .env
