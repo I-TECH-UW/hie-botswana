@@ -37,12 +37,13 @@ services:
       start_period: 1m
     volumes:
       - es-data:/usr/share/elasticsearch/data
-#      - /home/ubuntu/backups:/backups/elasticsearch
+      - backups:/backups/elasticsearch
     networks:
       public:
 
 volumes:
   es-data:
+  backups:
 
 networks:
   public:

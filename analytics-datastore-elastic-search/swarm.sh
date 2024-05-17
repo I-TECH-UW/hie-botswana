@@ -78,7 +78,7 @@ function create_certs() {
 
 function add_docker_configs() {
   local -r TIMESTAMP="$(date "+%Y%m%d%H%M%S")"
-  local -r path_config_certs="/usr/share/elasticsearch/config/certs/"
+  local -r path_config_certs="/usr/share/elasticsearch/config/certs"
 
   log info "Creating configs..."
 
@@ -136,7 +136,7 @@ function initialize_package() {
 
     docker::await_service_status $STACK "$ES_LEADER_NODE" "$container_status"
     install_expect
-    # set_elasticsearch_passwords "$ES_LEADER_NODE"
+    set_elasticsearch_passwords "$ES_LEADER_NODE"
 
     docker::deploy_sanity $STACK $compose_files
   ) || {
