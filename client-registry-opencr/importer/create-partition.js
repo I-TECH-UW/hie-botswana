@@ -1,10 +1,14 @@
 import got from 'got';
+//const got = require('got');
+
 
 const partition = process.env.PARTITION || 'opencr';
+console.log("response.body");
 
 (async () => {
   const createPartition = async () => {
-    //Check db exists before creating
+    console.log("response.body333");
+
     got.post('http://hapi-fhir:8080/fhir/default/$partition-management-create-partition', {
       json: {
         'resourceType': 'Parameters',
@@ -29,4 +33,6 @@ const partition = process.env.PARTITION || 'opencr';
       console.error('Error creating database:', error.message)
     });
   }
+  await createPartition();
+
 })();

@@ -10,7 +10,7 @@ services:
       - target: /importer/create-partition.js
         source: create-partition.js
     networks:
-      - opencr
+     # - opencr
       - hapi-fhir
     environment:
       PARTITION_NAME: ${HF_PARTITION_NAME}

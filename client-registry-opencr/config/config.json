@@ -23,7 +23,7 @@
   "fhirServer": {
     "username": "hapi",
     "password": "hapi",
-    "baseURL": "http://hapi-fhir:8080/fhir"
+    "baseURL": "http://hapi-fhir:8080/fhir/DEFAULT"
   },
   "elastic": {
     "server": "http://analytics-datastore-elastic-search:9200",

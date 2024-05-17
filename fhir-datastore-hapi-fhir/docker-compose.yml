@@ -25,6 +25,9 @@ services:
       - hapi.fhir.ig_runtime_upload_enabled=${ENABLE_RUNTIME_IG_UPLOAD}
       - hapi.fhir.enable_repository_validating_interceptor=true
       - hapi.fhir.fhir_version=${FHIR_VERSION}
+      - hapi.fhir.partitioning=true
+      - hapi.fhir.partitioning.allow_references_across_partitions=false
+      - hapi.fhir.partitioning.partitioning_include_in_search_hashes=false
       - JAVA_TOOL_OPTIONS=${HF_JAVA_OPTS}
       - CATALINA_OPTS=${HF_JAVA_OPTS}
     deploy:

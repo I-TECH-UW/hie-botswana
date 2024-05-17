@@ -7,12 +7,12 @@
       "fhirServer": {
         "username": "hapi",
         "password": "hapi",
-        "baseURL": "http://opencr-hapi-fhir:8080/fhir"
+        "baseURL": "http://hapi-fhir:8080/fhir/DEFAULT"
       },
       "elastic": {
-        "server": "http://opencr-es:9200",
-        "username": "",
-        "password": "",
+        "server": "http://analytics-datastore-elastic-search:9200",
+        "username": "elastic",
+        "password": "dev_password_only",
         "max_compilations_rate": "10000/1m",
         "index": "patients"
       },

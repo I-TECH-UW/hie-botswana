@@ -8,8 +8,10 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - NODE_ENV=${OPENCR_NODE_ENV:-docker}
-      - HAPI_FHIR_URL=${OPENCR_HAPI_URL-http://opencr-hapi-fhir:8080/fhir/metadata}
+      - NODE_ENV=docker
+      #- HAPI_FHIR_URL=${OPENCR_HAPI_URL-http://hapi-fhir:8080/fhir/opencr/metadata}
+      - HAPI_FHIR_URL=http://hapi-fhir:8080/fhir/DEFAULT/metadata
+
     configs:
       - target: /src/server/config/config_ro.json
         source: config.json
@@ -26,6 +28,8 @@ services:
       - default
       - openhim
       - traefik
+      - hapi
+      - elastic
     deploy:
       replicas: 1    
       restart_policy:
@@ -87,3 +91,9 @@ networks:
   omang:
     name: omang_public
     external: true
+  elastic:
+    name: elastic_public
+    external: true
+  hapi:
+    name: hapi-fhir_public
+    external: true  
