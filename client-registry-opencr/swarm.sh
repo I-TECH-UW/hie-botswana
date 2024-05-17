@@ -42,6 +42,13 @@ function initialize_package() {
   fi
 
   (
+    docker::await_service_status "hapi-fhir" "hapi-fhir" "Running"
+    docker::await_service_status "elasticsearch" "analytics-datastore-elastic-search" "Running"
+
+    if [[ "${ACTION}" == "init" ]]; then
+      docker::deploy_config_importer $STACK "$COMPOSE_FILE_PATH/importer/docker-compose.config.yml" "hapi_partition_config" "opencr"
+    fi
+
     docker::deploy_service "$STACK" "${COMPOSE_FILE_PATH}" "docker-compose.yml" "$package_dev_compose_filename"
   ) ||
     {

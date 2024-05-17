@@ -2,11 +2,11 @@
 
 ./build-image.sh
 
-./instant package remove -n monitoring --env-file .env
-./instant package init -n monitoring --env-file .env
+# ./instant package remove -n monitoring --env-file .env
+# ./instant package init -n monitoring --env-file .env
 
-./instant package remove -n analytics-datastore-elastic-search --env-file .env
-./instant package init -n analytics-datastore-elastic-search --env-file .env
+# ./instant package remove -n analytics-datastore-elastic-search --env-file .env
+# ./instant package init -n analytics-datastore-elastic-search --env-file .env
 
 #./instant package remove -n message-bus-kafka --env-file .env
 #./instant package init -n message-bus-kafka --env-file .env

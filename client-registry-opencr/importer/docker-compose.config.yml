@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  hapi_db_config:
+  hapi_partition_config:
     image: node:erbium-alpine
     command: sh -c "cd /importer && ls && npm i && ls && node create-partition.js"
     configs:
